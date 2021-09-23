@@ -2,12 +2,28 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './Navbar'
 import Searchbox from './Searchbox';
+import SearchButtonGroup from './SearchButtons'
+//import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+
 function App() {
+  /*
+  const myTheme = createMuiTheme({
+    palette:{
+      type:"dark"
+    },
+  });
+
+  <ThemeProvider theme = {myTheme}>
+  </ThemeProvider>
+  */
   return (
-    <div className="App">
-      <Navbar/>
-      <Searchbox/>
-    </div>
+      <div className="App" style={{background:'black'}}>
+        <Navbar/>
+        <hr style={{height:'1px',backgroundImage:'linear-gradient(to right, #256EFF,#F84F60)',margin:'0px',padding:'0px'}}></hr>
+        <Searchbox/>
+      </div>
+    
   );
 }
 

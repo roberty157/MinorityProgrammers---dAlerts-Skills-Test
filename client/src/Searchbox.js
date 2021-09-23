@@ -1,10 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import SearchButtonGroup from './SearchButtons';
 
 export default function Searchbox() {
     return (
-        <Box sx={{ display: 'flex', height:'100%',margin:'auto', alignItems:'center', border:'solid black 2px'}}>
-            example
+        <Box sx={{ display: 'flex', height:'100%',margin:'auto', justifyContent:'center', alignItems:'center', border:'solid black 2px'}}>
+            <Box sx={{marginTop:'50px', border:'solid black 2px'}}>
+                <SearchButtonGroup></SearchButtonGroup>
+            </Box>
         </Box>
     )
 }

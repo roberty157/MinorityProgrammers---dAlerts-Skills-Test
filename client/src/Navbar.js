@@ -9,8 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 export default function Navbar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1 }} >
+      <AppBar position="static" style={{backgroundColor:'black'}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -22,7 +22,7 @@ export default function Navbar() {
             
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            My Alerts
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
