@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const alertSchema = require('./Alert');
+//const alertSchema = require('./Alert');
 
 const userSchema = new Schema({
     wallet: {
@@ -10,7 +10,7 @@ const userSchema = new Schema({
     numAlerts: {
       type: Number,
     },
-    alerts: [alertSchema],
+    alertIds: [String],
   },
     {
       toJSON: {

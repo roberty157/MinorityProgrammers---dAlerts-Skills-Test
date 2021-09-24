@@ -6,13 +6,52 @@ import AlertList from './AlertList';
 import Box from '@mui/material/Box';
 
 import AlertForm from './AlertForm';
-
+import AlertItem from './AlertItem';
+import SearchFilterButton from './SearchFilterButton';
 import {Container, Row, Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.css';
+
+const alertListData=[
+  {
+    "alertid":0,
+    "symbol":'sushi',
+    "exchange":'pancake swap',
+    "alert_price":'$0.62',
+    "current_price":'$0.60',
+    "notification_type":'DISCORD',
+
+  },
+  {
+    "alertid":1,
+    "symbol":'inv',
+    "exchange":'sushi swap',
+    "alert_price":'$0.71',
+    "current_price":'$1.03',
+    "notification_type":'WEB',
+
+  },
+  {
+    "alertid":2,
+    "symbol":'pickle',
+    "exchange":'quick swap',
+    "alert_price":'$1.41',
+    "current_price":'$1.35',
+    "notification_type":'TWITTER',
+  },
+]
+
 export default function SearchButtonGroup() {
+  const [search, setSearch] = useState('');
+  const handleInputChange=(event)=>{
+    const {value} = event.target;
+    setSearch(value);
+    console.log(search);
+  }
   const [filter,setFilter] = useState("null");
+
+  
 
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -23,19 +62,23 @@ export default function SearchButtonGroup() {
   <Container style={{width:'100%'}}>
   <Row style={{alignItems:'center'}}>
     <Col style={{fontSize:'12px', color:'white'}}>
-      <Button onClick={()=>setFilter('SYMBOL')} style={{borderColor:'black',backgroundColor:'black',fontsize:'12px',color:'white'}}>SYMBOL</Button>
+      <SearchFilterButton name={'SYMBOL'} current={filter} changeCurrent ={()=>setFilter('SYMBOL')}></SearchFilterButton>
     </Col>
     <Col style={{fontSize:'12px', color:'white'}}>
-      <Button onClick={()=>setFilter('EXCHANGE')} style={{borderColor:'black',backgroundColor:'black',fontSize:'12px',color:'white'}}>EXCHANGE</Button>
+      
+      <SearchFilterButton name={'EXCHANGE'} current={filter} changeCurrent={()=>{setFilter('EXCHANGE')}}></SearchFilterButton>
     </Col>
     <Col style={{fontSize:'12px', color:'white'}}>
-      <Button onClick={()=>setFilter('ALERT PRICE')} style={{borderColor:'black',backgroundColor:'black',fontSize:'12px',color:'white'}}>ALERT PRICE</Button>
+      
+      <SearchFilterButton name={'ALERT PRICE'} current={filter} changeCurrent={()=>{setFilter('ALERT PRICE')}}></SearchFilterButton>
     </Col>
     <Col style={{fontSize:'12px', color:'white'}}>
-      <Button onClick={()=>setFilter('CURRENT PRICE')} style={{borderColor:'black',backgroundColor:'black',fontSize:'12px',color:'white'}}>CURRENT PRICE</Button>
+      
+      <SearchFilterButton name={'CURRENT PRICE'} current={filter} changeCurrent={()=>{setFilter('CURRENT PRICE')}}></SearchFilterButton>
     </Col>
     <Col style={{fontSize:'12px', color:'white'}}>
-      <Button onClick={()=>setFilter('NOTIFICATION TYPE')} style={{borderColor:'black',backgroundColor:'black',fontSize:'12px',color:'white'}}>NOTIFICATION TYPE</Button>
+      
+      <SearchFilterButton name={'NOTIFICATION TYPE'} current={filter} changeCurrent={()=>{setFilter('NOTIFICATION TYPE')}}></SearchFilterButton>
     </Col>
     <Col style={{fontSize:'12px', color:'white'}}>
       <Button style={{borderColor:'black',backgroundColor:'black',fontSize:'12px',color:'white'}} onClick={()=>setModalShow(true)}>+ New Alert</Button>
@@ -53,33 +96,20 @@ export default function SearchButtonGroup() {
               </svg>
           </button>
       </div>
-      <div class="form-outline"  style={{width:'96%',backgroundColor: '#1F2231',borderRadius:'10px', paddingLeft:'0px',marginLeft:'0px'}}>
-        <input type="search" placeholder="SEARCH FOR TOKEN SYMBOL,EXCHANGE NAME, OR NOTIFICATION TYPE" id="form1" class="form-control" style={{backgroundColor:'#1F2231',borderColor:'#1F2231', fontSize:'12px'}}/>
+      <div class="form-outline"  style={{width:'96%',backgroundColor: '#1F2231',borderRadius:'10px', paddingLeft:'0px',marginLeft:'0px', color:'white'}}>
+        <input value={search} onChange={handleInputChange} type="search" placeholder="SEARCH FOR TOKEN SYMBOL,EXCHANGE NAME, OR NOTIFICATION TYPE" id="form1" class="form-control" style={{backgroundColor:'#1F2231',borderColor:'#1F2231', fontSize:'12px', color:'white'}}/>
         
       </div>
                         
     </div>
   </Row>
-  <Row style={{backgroundColor:'#1F2231', paddingTop:'20px', paddingBottom:'20px', borderRadius:'10px', marginBottom:'20px', alignItems:'center'}}>
-    <Col style={{fontSize:'12px', color:'white'}}>sushi</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>pancake swap</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>$0.62</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>$0.60</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>DISCORD</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>
-      <Button style={{borderColor:'black',backgroundColor:'black',fontSize:'12px',color:'white'}}>CANCEL</Button>
-    </Col>
-  </Row>
-  <Row>
-    <Col style={{fontSize:'12px', color:'white'}}>INV</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>sushi swap</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>$0.71</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>$1.03</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>WEB</Col>
-    <Col style={{fontSize:'12px', color:'white'}}>
-      <Button style={{borderColor:'#1F2231',backgroundColor:'#1F2231',fontSize:'12px',color:'white'}}>CANCEL</Button>
-    </Col>
-  </Row>
+  {
+    alertListData.map((el,index)=>(
+      <AlertItem symbol={el.symbol} exchange={el.exchange} alert_price={el.alert_price} current_price={el.current_price} notification_type={el.notification_type} index={index} key={index}></AlertItem>
+    ))
+  }
+
+  
 </Container>
 
       

@@ -1,6 +1,6 @@
-const { Schema } = require('mongoose');
+const { Schema ,model} = require('mongoose');
 
-const citySchema = new Schema({
+const alertSchema = new Schema({
   exchange_name :{
     type: String,
     required: true,
@@ -22,7 +22,7 @@ const citySchema = new Schema({
     trim:true,
   },
   alert_price: {
-    type: Number,
+    type: String,
     required:true,
   },
   notification_type:{
@@ -30,7 +30,13 @@ const citySchema = new Schema({
     required:true,
     trim:true,
   },
+  above_or_below:{
+    type:String,
+    required:true,
+    trim:true,
+  }
   
 });
 
-module.exports = citySchema;
+const Alert = model('Alert', alertSchema);
+module.exports = Alert;
