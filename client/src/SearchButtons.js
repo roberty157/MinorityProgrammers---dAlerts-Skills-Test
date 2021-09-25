@@ -13,7 +13,41 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.css';
 
-const alertListData=[
+
+//https://www.w3schools.com/howto/howto_js_filter_lists.asp
+
+function sortBy(arr,name,asc){
+  const nameToAttribute={
+    'SYMBOL':'symbol',
+    'EXCHANGE':'exchange',
+    'ALERT PRICE':'alert_price',
+    'CURRENT PRICE':'current_price',
+    'NOTIFICATION TYPE':'notification_type',
+    'null':'alertid'
+  }
+
+  function compare(a,b){
+    if(asc ===true){
+      if(a[nameToAttribute[name]] < b[nameToAttribute[name]]){
+        return -1;
+      }
+      if (a[nameToAttribute[name]] < b[nameToAttribute[name]]){
+        return 1;
+      }
+    }else{
+      if(a[nameToAttribute[name]] > b[nameToAttribute[name]]){
+        return -1;
+      }
+      if(a[nameToAttribute[name]] > b[nameToAttribute[name]]){
+        return 1;
+      }
+    }
+    return 0;
+  }
+  return arr.sort(compare)
+}
+
+const initialAlertListData=[
   {
     "alertid":0,
     "symbol":'sushi',
@@ -43,44 +77,58 @@ const alertListData=[
 ]
 
 export default function SearchButtonGroup() {
+
+  //if sortDesc is true, then go from high to low, or Z to A
+  const [filter,setFilter] = useState("null");
+  const [modalShow, setModalShow] = React.useState(false);
+
+  const [alertListData,setAlertListData] = useState(initialAlertListData); 
+  const [sortDesc, setSort] = useState(false);
+
+  const toggleSort= ()=>{
+    if(sortDesc ===true){
+      setSort(false);
+      setAlertListData(sortBy(alertListData,filter,true));
+    }
+    else{
+      setSort(true);
+      setAlertListData(sortBy(alertListData,filter,false));
+    }
+    console.log(sortDesc);
+  }
   const [search, setSearch] = useState('');
   const handleInputChange=(event)=>{
     const {value} = event.target;
     setSearch(value);
     console.log(search);
   }
-  const [filter,setFilter] = useState("null");
-
   
-
-  const [modalShow, setModalShow] = React.useState(false);
-
  
 
   return (
     
   <Container style={{width:'100%'}}>
   <Row style={{alignItems:'center'}}>
-    <Col style={{fontSize:'12px', color:'white'}}>
-      <SearchFilterButton name={'SYMBOL'} current={filter} changeCurrent ={()=>setFilter('SYMBOL')}></SearchFilterButton>
+    <Col sx={4} style={{fontSize:'12px', color:'white'}}>
+      <SearchFilterButton name={'SYMBOL'} current={filter} changeCurrent ={()=>setFilter('SYMBOL')} changeSort={()=>toggleSort()} ></SearchFilterButton>
     </Col>
-    <Col style={{fontSize:'12px', color:'white'}}>
+    <Col sx={4} style={{fontSize:'12px', color:'white'}}>
       
-      <SearchFilterButton name={'EXCHANGE'} current={filter} changeCurrent={()=>{setFilter('EXCHANGE')}}></SearchFilterButton>
+      <SearchFilterButton name={'EXCHANGE'} current={filter} changeCurrent={()=>{setFilter('EXCHANGE')}} changeSort={()=>toggleSort()}></SearchFilterButton>
     </Col>
-    <Col style={{fontSize:'12px', color:'white'}}>
+    <Col  sx={4} style={{fontSize:'12px', color:'white'}}>
       
-      <SearchFilterButton name={'ALERT PRICE'} current={filter} changeCurrent={()=>{setFilter('ALERT PRICE')}}></SearchFilterButton>
+      <SearchFilterButton name={'ALERT PRICE'} current={filter} changeCurrent={()=>{setFilter('ALERT PRICE')}} changeSort={()=>toggleSort()}></SearchFilterButton>
     </Col>
-    <Col style={{fontSize:'12px', color:'white'}}>
+    <Col sx={4} style={{fontSize:'12px', color:'white'}}>
       
-      <SearchFilterButton name={'CURRENT PRICE'} current={filter} changeCurrent={()=>{setFilter('CURRENT PRICE')}}></SearchFilterButton>
+      <SearchFilterButton name={'CURRENT PRICE'} current={filter} changeCurrent={()=>{setFilter('CURRENT PRICE')} } changeSort={()=>toggleSort()}></SearchFilterButton>
     </Col>
-    <Col style={{fontSize:'12px', color:'white'}}>
+    <Col sx={4} style={{fontSize:'12px', color:'white'}}>
       
-      <SearchFilterButton name={'NOTIFICATION TYPE'} current={filter} changeCurrent={()=>{setFilter('NOTIFICATION TYPE')}}></SearchFilterButton>
+      <SearchFilterButton name={'NOTIFICATION TYPE'} current={filter} changeCurrent={()=>{setFilter('NOTIFICATION TYPE')}} changeSort={()=>toggleSort()}></SearchFilterButton>
     </Col>
-    <Col style={{fontSize:'12px', color:'white'}}>
+    <Col  sx={4} style={{fontSize:'12px', color:'white'}}>
       <Button style={{borderColor:'black',backgroundColor:'black',fontSize:'12px',color:'white'}} onClick={()=>setModalShow(true)}>+ New Alert</Button>
       <AlertForm show={modalShow} onHide={() => setModalShow(false)}/>
     </Col>
@@ -172,4 +220,54 @@ export default function SearchButtonGroup() {
       </Row>
   </Container>
 */
+/*
+function compare( a, b ) {
+  if ( a.alertid < b.alertid ){
+    return -1;
+  }
+  if ( a.alertid > b.alertid ){
+    return 1;
+  }
+  return 0;
+}
+*/
 
+/*
+function sortBy(arr,attribute){
+  function compare(a,b){
+    if(a[attribute] < b[attribute]){
+      return -1;
+    }
+    if (a[attribute] < b[attribute]){
+      return 1;
+    }
+    return 0;
+  }
+  arr.sort(compare)
+}
+*/
+//initialAlertListData.sort(compare);
+
+/*
+function sortBy(arr,attribute,asc){
+  function compare(a,b){
+    if(asc ===true){
+      if(a[attribute] < b[attribute]){
+        return -1;
+      }
+      if (a[attribute] < b[attribute]){
+        return 1;
+      }
+    }else{
+      if(a[attribute] > b[attribute]){
+        return -1;
+      }
+      if(a[attribute] > b[attribute]){
+        return 1;
+      }
+    }
+    return 0;
+  }
+  return arr.sort(compare)
+}
+*/

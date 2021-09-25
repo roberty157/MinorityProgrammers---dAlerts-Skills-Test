@@ -2,10 +2,19 @@ import * as React from 'react';
 import {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.css';
-export default function SearchFilterButton({name,current,changeCurrent}){
+import { propTypes } from 'react-bootstrap/esm/Image';
+import './SearchFilterButton.css';
+export default function SearchFilterButton(props){
+    const name = props.name;
+    const current = props.current;
     const buttonColor = (name === current ? '#1F2231':'black')
+
+    const onClickChangeFunc =()=>{
+        props.changeCurrent();
+        props.changeSort();
+    }
     return (
-        <Button style={{borderColor:'black',backgroundColor:buttonColor,fontsize:'12px',color:'white'}} onClick={changeCurrent}>{name}</Button>
+        <Button style={{borderColor:'black',backgroundColor:buttonColor,fontsize:'12px',color:'white'}} onClick={()=>{onClickChangeFunc()}}>{name}</Button>
     )
 }
 //<Button onClick={()=>setFilter('SYMBOL')} style={{borderColor:'black',backgroundColor:buttonColor,fontsize:'12px',color:'white'}}>SYMBOL</Button>

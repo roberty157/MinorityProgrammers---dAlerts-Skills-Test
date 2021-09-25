@@ -1,0 +1,7 @@
+.hoverEffect:hover{
+    background-color:#1F2231;
+}
+.hoverEffect{
+    border-radius:8px;
+    padding:10px;
+}

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const db = require('../models');
 
 mongoose.connect('mongodb://localhost/dAlert', {
-    useNewUrlParser: true,
+  useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 });

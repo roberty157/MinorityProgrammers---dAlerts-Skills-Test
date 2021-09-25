@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './AlertForm.css';
 import {Container, Row, Col, Form} from 'react-bootstrap';
 import {InputGroup, FormControl} from 'react-bootstrap';
+
+import axios from 'axios';
 //token address, chain, exchange, target price, above or below, notification type
 export default function AlertForm(props) {
     const [alertFormData, setAlertFormData] = useState({token_address:'', blockchain:'', exchange_name:'',alert_price:'', notification_type:'', above_or_below:''})
@@ -28,7 +30,16 @@ export default function AlertForm(props) {
         console.log('you clicked submit');
         console.log('submit',alertFormData);
         
+        axios
+            .post("http://localhost:3001/alerts/add", alertFormData)
+            .then((res)=>console.log(res.data));
+
+        setAlertFormData({token_address:'', blockchain:'', exchange_name:'',alert_price:'', notification_type:'', above_or_below:''});
         props.onHide();
+
+
+
+
         return false;
 
     }
