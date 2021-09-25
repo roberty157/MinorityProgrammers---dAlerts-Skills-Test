@@ -40,10 +40,11 @@ export default function NavBar(){
         
       </div>
     </div>
-    <hr style={{height:'1px',backgroundImage:'linear-gradient(to right, #256EFF,#F84F60)',marginTop:'40px',marginLeft:'0px',marginRight:'0px',padding:'0px'}}></hr>
+    
     </div>
   )
 }
+//<hr style={{height:'1px',backgroundImage:'linear-gradient(to right, #256EFF,#F84F60)',marginTop:'40px',marginLeft:'0px',marginRight:'0px',padding:'0px'}}></hr>
 /*
 export default function Navbar() {
   return (

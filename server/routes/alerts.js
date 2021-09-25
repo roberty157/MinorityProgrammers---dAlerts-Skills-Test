@@ -2,13 +2,14 @@
 
 
 const router = require('express').Router();
-let Alert = require('../models/Alert');
+const Alert = require('../models/Alert');
 
 router.route('/').get((req,res)=>{
+    console.log('getting all alerts');
     Alert.find()
         .then(alerts =>res.json(alerts))
         .catch(err => res.status(400).json('Error: ' + err));
-})
+});
 router.route('/add').post((req,res)=>{
     
     const newAlert = new Alert({exchange_name:req.body.exchange_name,

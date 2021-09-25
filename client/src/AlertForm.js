@@ -12,6 +12,7 @@ import axios from 'axios';
 //token address, chain, exchange, target price, above or below, notification type
 export default function AlertForm(props) {
     const [alertFormData, setAlertFormData] = useState({token_address:'', blockchain:'', exchange_name:'',alert_price:'', notification_type:'', above_or_below:''})
+    const alertListData = props.alertlistdata;
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
@@ -30,6 +31,30 @@ export default function AlertForm(props) {
         console.log('you clicked submit');
         console.log('submit',alertFormData);
         
+        console.log(alertListData);
+        //let newListData = alertListData;
+        //console.log(typeof newListData);
+        //console.log(newListData);
+        const newAlert={
+            alertid:alertListData.length,
+            token_address:alertFormData.token_address,
+            blockchain:alertFormData.blockchain,
+            exchange_name:alertFormData.exchange_name,
+            alert_price: alertFormData.alert_price,
+            notification_type: alertFormData.notification_type,
+            above_or_below: alertFormData.above_or_below,
+        }
+        /*
+        let newListData = []
+        for(let i=0;i<alertListData.length;i++){
+            newListData.appen
+        }
+        */
+        const newListData = alertListData.push(newAlert);
+        console.log(newListData);
+        //newListData.append(alertFormData);
+        //alertListData.append(alertFormData);
+        props.updatelistdata(alertListData);
         axios
             .post("http://localhost:3001/alerts/add", alertFormData)
             .then((res)=>console.log(res.data));

@@ -23,11 +23,13 @@ function App() {
         <NavBar/>
         
         
-
+        <div>
         <Route exact path="/" component ={Searchbox}/>
         <Route path="/alerts/:id">
           <AlertPage/>
         </Route>
+        </div>
+        
       </div>
     
   );
